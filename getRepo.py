@@ -53,14 +53,19 @@ def getKeywordLoc_C(keyword):
     # getKeywordLoc_C : 단어를 받아 깃허브에서 C언어 저장소 검색한 주소를 반환한다.
     return ('https://github.com/search?l=C&type=Repositories&utf8=%E2%9C%93&q=' + keyword)
 
-def allRepos_keyword(keyword):
+def allRepos_keyword_C(keyword):
     # allRepos_keyword : 단어를 받아 모든 검색 결과 저장소의 이름을 반환한다.
-    # TODO : complete this
+    # TODO : 현재는 최대 50개까지밖에 못가져온다. 깃허브 서비스 제공자 쪽에서
+    #       횟수제한을 걸어놓은 듯 하다. authentication 방법을 찾는 중이다.
     allrepos = []
     loc = getKeywordLoc_C(keyword)
-    # while (loc != None):
-    return None
+    while (loc != None):
+        allrepos += (getRepos(loc))
+        loc = nextPage(getSoup(loc))
+    return allrepos
 
+# 테스트 코드:
+# print(len(allRepos_keyword_C('text')))
 
 # 테스트 코드:
 # print(getRepos(getKeywordLoc_C('graph')))
